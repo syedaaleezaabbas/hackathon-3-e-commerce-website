@@ -15,7 +15,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
             icon: 'success',
             title: `${product.title} added to cart`,
             showConfirmButton: false,
-            timer: 1000
+            timer: 1000,
         });
         addToCart(product);
     };
