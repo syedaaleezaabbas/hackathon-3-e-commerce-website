@@ -1,9 +1,9 @@
 import { client } from '@/sanity/lib/client';
 import Image from 'next/image';
-import { FaHeart, FaShoppingCart, FaEye } from 'react-icons/fa';
 import HeaderMain from '@/components/HeaderMain';
 import { urlFor } from '@/sanity/lib/image';
 import Footer from '@/components/Footer';
+import AddToCartButton from '@/components/AddToCartButton';
 
 interface Params {
     params: {
@@ -12,7 +12,6 @@ interface Params {
 }
 
 const page = async ({ params }: Params) => {
-
     const query = `
     *[_type == "product" && _id == $id] {
    _id,
@@ -22,11 +21,13 @@ const page = async ({ params }: Params) => {
    price,
    tags,
    dicountPercentage,
-   isNew
+   isNew,
+   inventory
 }[0]
 `
     const product: Products | null = await client.fetch(query, { id: params.id })
     console.log(product)
+
 
     if (!product) {
         return (
@@ -57,10 +58,7 @@ const page = async ({ params }: Params) => {
                 <div className="flex-1">
                     <h3 className="text-lg font-bold mt-12">{product.title}</h3>
                     <p className="text-base text-[#737373] mt-3 line-clamp-5">{product.description}</p>
-                    <div className="mt-3 flex items-center text-lg">
-                        <p className="text-[#BDBDBD] font-semibold line-through mr-2">${product.price}</p>
-                        <p className="text-[#23856D] font-bold">${product.dicountPercentage}</p>
-                    </div>
+                    <p className="text-[#BDBDBD] font-semibold text-lg mt-3">${product.price}</p>
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mt-3">
                         {product.tags?.map((tag, index) => (
@@ -72,20 +70,8 @@ const page = async ({ params }: Params) => {
 
                     <hr className='my-8 border-t border-gray-300' />
 
-                    {/* Buttons */}
-                    <div className='flex md:flex-row flex-col md:items-center items-start gap-4'>
-                        <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
-                            Select Options
-                        </button>
-                        <div className="flex gap-4 ">
-                            <div className='border-2 border-gray-300 rounded-full p-2'>
-                                <FaHeart className="text-xl text-gray-500 cursor-pointer" /></div>{/* Wishlist Icon */}
-                            <div className='border-2 border-gray-300 rounded-full p-2'>
-                                <FaShoppingCart className="text-xl text-gray-500 cursor-pointer" /></div>{/* Cart Icon */}
-                            <div className='border-2 border-gray-300 rounded-full p-2'>
-                                <FaEye className="text-xl text-gray-500 cursor-pointer" /></div> {/* Eye Icon */}
-                        </div>
-                    </div>
+                    {/* Replace button with client component */}
+                    <AddToCartButton product={product} />
                 </div>
             </div>
             <Footer />

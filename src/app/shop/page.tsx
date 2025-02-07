@@ -18,20 +18,19 @@ const Shop = () => {
   const [products, setProducts] = useState<Products[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Products[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 4; // Show 8 products per page after pagination
+  const productsPerPage = 4; // Show 4 products per page after pagination
 
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `*[_type == "product"] { 
         _id, title, description, "productImage":productImage.asset._ref, 
-        price, tags, dicountPercentage, isNew 
+        price, tags, dicountPercentage, isNew, inventory
       }[12..23]`;
 
       const fetchedProducts = await client.fetch(query);
       setProducts(fetchedProducts);
-      setFilteredProducts(fetchedProducts); // Initially show all 24 products
+      setFilteredProducts(fetchedProducts); // Initially show all 12 products
     };
-
     fetchProducts();
   }, []);
 
@@ -43,16 +42,19 @@ const Shop = () => {
     setCurrentPage(1); // Reset pagination on search
   };
 
+
   // Get products for current page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts =
     currentPage === 1 ? filteredProducts : filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
+
   // Handle pagination
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
 
   return (
     <div className="bg-white max-w-screen-2xl mx-auto">
@@ -106,7 +108,7 @@ const Shop = () => {
       {/* Products Section */}
       <div className="bg-white py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:px-28 px-16 md:space-y-0 space-y-14">
-          {currentProducts.length > 0 ? (
+        {currentProducts.length > 0 ? (
             currentProducts.map((product) => (
               <ProductListing product={product} key={product._id} isShopPage={true} />
             ))

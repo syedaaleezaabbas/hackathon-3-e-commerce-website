@@ -23,10 +23,7 @@ const ProductListing = ({ product, isShopPage }: { product: Products, isShopPage
                     <div className="pb-4 px-4">
                         <h3 className="text-lg font-bold mt-4">{product.title}</h3>
 
-                        <div className="mt-3 flex items-center text-base">
-                            <p className="text-[#BDBDBD] font-semibold mr-3 line-through">${product.price}</p>
-                            <p className="text-[#23856D] font-bold">{product.dicountPercentage}%<span className='text-sm'>OFF</span></p>
-                        </div>
+                        <p className="text-[#BDBDBD] font-semibold text-lg mt-3">${product.price}</p>
                     </div>
                 </Link>
             </div>

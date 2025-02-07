@@ -19,7 +19,7 @@ const MobileHeader = () => {
                 <h1 className='text-[28px] font-bold text-[#252b42]'>Bandage</h1>
                 <div className='flex items-center gap-x-6'>
                     <p className='text-xl flex items-center'><a href="#"><IoSearchSharp /></a></p>
-                    <p className='text-xl flex items-center'><a href="#"><TbShoppingCart /></a></p>
+                    <p className='text-xl flex items-center'><Link href="/cart"><TbShoppingCart /></Link></p>
 
                     <SheetTrigger className='md:hidden'>
                         <Menu />

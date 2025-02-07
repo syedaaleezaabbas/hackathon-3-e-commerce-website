@@ -11,4 +11,5 @@ interface Products {
     tags: string[];
     dicountPercentage: number;
     isNew: boolean;
+    inventory: number;
 }

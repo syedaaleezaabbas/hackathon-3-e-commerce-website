@@ -12,10 +12,10 @@ export const product = defineType({
             type: "string"
         },
         {
-            name:"description",
-            type:"text",
+            name: "description",
+            type: "text",
             validation: (rule) => rule.required(),
-            title:"Description",
+            title: "Description",
         },
         {
             name: "productImage",
@@ -36,14 +36,19 @@ export const product = defineType({
             of: [{ type: "string" }]
         },
         {
-            name:"dicountPercentage",
-            type:"number",
-            title:"Discount Percentage",
+            name: "dicountPercentage",
+            type: "number",
+            title: "Discount Percentage",
         },
         {
-            name:"isNew",
-            type:"boolean",
-            title:"New Badge",
+            name: "isNew",
+            type: "boolean",
+            title: "New Badge",
+        },
+        {
+            name: "inventory",
+            type: "number",
+            title: "Inventory",
         }
     ]
 })
